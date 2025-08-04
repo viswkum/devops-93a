@@ -3,12 +3,17 @@ pipeline {
     stages {
         stage("clone") {
             steps {
-                git 'https://github.com/viswkum/devops-93a.git'
+                git 'https://github.com/viswkum/hellow-wrld.git'
             }
         }
         stage("rename") {
             steps {
-                sh 'mv hdfc ICICI'
+                sh "mv Dockerfile New-Dockerfile"
+            }
+        }
+        stage("build") {
+            steps {
+               sh "mvn clean install"
             }
         }
     }
