@@ -1,19 +1,21 @@
 pipeline {
     agent any
+    environment {
+        IMAGE_NAME = 'TomcatImage'
+        IMAGE_TAG = 'v1'
+    }
     stages {
-        stage("clone") {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/viswkum/hellow-wrld.git'
+                git 'https://github.com/viswkum/devops-93a.git'
             }
         }
-        stage("rename") {
+        stage('Build Docker Image') {
             steps {
-                sh "mv Dockerfile New-Dockerfile"
-            }
-        }
-        stage("build") {
-            steps {
-               sh "mvn clean install"
+                sh """
+                    docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+                    docker images | grep ${IMAGE_NAME}
+                """
             }
         }
     }
