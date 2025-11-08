@@ -1,14 +1,12 @@
 pipeline {
     agent any
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
     stages {
         stage("clone") {
             steps {
                 git 'https://github.com/viswkum/hellow-wrld.git'
-            }
-        }
-        stage("rename") {
-            steps {
-                sh "mv Dockerfile New-Dockerfile"
             }
         }
         stage("build") {
